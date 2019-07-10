@@ -12,6 +12,7 @@ import {
   ListModule,
   ListItemModule,
   TopbarModule,
+  ModalModule
 } from '@momentum-ui/angular';
 
 @NgModule({
@@ -29,6 +30,7 @@ import {
     ListModule,
     ListItemModule,
     TopbarModule,
+    ModalModule
   ],
   exports: [
     SideBarModule,
@@ -42,6 +44,7 @@ import {
     ListModule,
     ListItemModule,
     TopbarModule,
+    ModalModule
   ]
 })
 export class AppMomentumModule { }

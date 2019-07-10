@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ModalExample } from './modal-example.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  providers: [ ModalExample ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent  {
 
-  constructor() { }
+  constructor(public modal: ModalExample) {}
 
-  ngOnInit() {
+  openHomePageModal() {
+    this.modal.openModal();
   }
+
+
 
 }
