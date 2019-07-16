@@ -7,6 +7,10 @@ import { Component, ElementRef, Input } from '@angular/core';
 export class ModalExample {
   @Input() showMe: Boolean = false;
 
+  openModal() {
+    this.showMe = true;
+  }
+
   closeModal() {
     this.showMe = false;
   }
