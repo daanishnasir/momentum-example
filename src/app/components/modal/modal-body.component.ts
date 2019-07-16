@@ -1,13 +1,19 @@
-import { Component} from '@angular/core';
+/** @component modal-body */
+
+import { Component, Input, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'app-modal-body',
+  selector: 'md-modal-body',
   template: `
     <ng-content></ng-content>
   `,
-// tslint:disable-next-line: use-host-property-decorator
-  host: {
-    class: 'md-modal__body'
-  }
+  styles: [],
 })
-export class ModalBodyComponent { }
+export class ModalBodyComponent {
+  /** @option css class names | '' | '' */
+  @Input() public class: string = '';
+
+  @HostBinding('class') get className(): string {
+    return 'md-modal__body' + `${(this.class && ` ${this.class}`) || ''}` + ``;
+  }
+}

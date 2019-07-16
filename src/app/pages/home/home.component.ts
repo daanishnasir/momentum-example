@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { ModalExample } from './modal-example.component';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [ ModalExample ]
+  providers: [ ]
 })
 export class HomeComponent  {
+  public showModal: boolean;
 
-  constructor(public modal: ModalExample) {}
+  constructor() {}
 
   openHomePageModal() {
-    this.modal.openModal();
+    this.showModal = true;
   }
 
 

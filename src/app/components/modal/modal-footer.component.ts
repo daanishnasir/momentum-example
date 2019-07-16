@@ -1,13 +1,21 @@
-import { Component} from '@angular/core';
+/** @component modal-footer */
+
+import { Component,  Input, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'app-modal-footer',
+  selector: 'md-modal-footer',
   template: `
     <ng-content></ng-content>
   `,
-// tslint:disable-next-line: use-host-property-decorator
-  host: {
-    class: 'md-modal__footer'
-  }
+  styles: [],
 })
-export class ModalFooterComponent { }
+export class ModalFooterComponent  {
+  /** @option css class names | '' | '' */
+  @Input() public class: string = '';
+
+  @HostBinding('class') get className(): string {
+    return (
+      'md-modal__footer' + `${(this.class && ` ${this.class}`) || ''}` + ``
+    );
+  }
+}
