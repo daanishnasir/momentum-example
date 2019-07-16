@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { ModalExample } from './modal-example.component';
 
 @Component({
@@ -8,12 +8,13 @@ import { ModalExample } from './modal-example.component';
   providers: [ ModalExample ]
 })
 export class HomeComponent  {
-
-  constructor(public modal: ModalExample) {}
-
-  openHomePageModal() {
-    this.modal.openModal();
+ // tslint:disable-net-line:ban-types
+ public showModal = false;
+  constructor() {
   }
+
+
+
 
 
 
