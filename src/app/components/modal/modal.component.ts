@@ -7,10 +7,12 @@ import {
   Optional,
   Inject,
   Output,
-  EventEmitter,
+  EventEmitter
 } from '@angular/core';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
+import { ModalService } from './modal.service';
+import { Subscription } from 'rxjs';
 
 export type SizeType =
   | 'large'
@@ -23,7 +25,7 @@ export type SizeType =
 @Component({
   selector: 'md-modal',
   template: `
-  <div  *ngIf="show" [ngClass]="[backdrop ? 'md-modal__backdrop fade in': 'fade in']"  (click)="close()">
+  <div  *ngIf="show" [ngClass]="[backdrop ? 'md-modal__backdrop fade in': 'fade in']"  (click)="closeModal()">
     <div
       role="dialog"
       id="{{htmlId}}"
@@ -38,14 +40,15 @@ export type SizeType =
       </div>
     </div>
   </div>
-  `
+  `,
+  providers: [ModalService]
 })
 export class ModalComponent {
   /** @option Determines the visibility and ability to edit the backdrop of the Modal | true */
-  @Input() public backdrop: Boolean = true;
+  @Input() public backdrop: boolean = true;
 
   /** @option To enable/disable clicking on underlay to exit modal | false */
-  @Input() public backdropClickExit: Boolean = false;
+  @Input() public backdropClickExit: boolean = false;
 
   private _classList: '';
   /** @option Optional css class names | '' */
@@ -57,14 +60,15 @@ export class ModalComponent {
     return this._classList;
   }
 
-  private _show: Boolean = false;
+  private _show: boolean = false;
   /** @option Show/hide modal | 'false' */
   @Input()
-  set show(value: Boolean) {
+  set show(value: boolean) {
     this._show = value;
     if ( this._show ) {
       this._trapFocus();
     }
+    this.modalService.setModalStatus(this.show);
   }
   get show() {
     return this._show;
@@ -79,15 +83,32 @@ export class ModalComponent {
    /** @option ariaLabel for modal | '' */
    @Input() public ariaLabel: String = '';
 
-   @Output() closeOnBackdrop: EventEmitter<any> = new EventEmitter<any>();
+   /** @option data array of data for modal | [] */
+   @Input() public data: [];
+
+   // tslint:disable-next-line: no-output-on-prefix
+   @Output() onHide: EventEmitter<any> = new EventEmitter();
+
+   @Output() closeOnBackdrop: EventEmitter<any> = new EventEmitter();
 
    private _focusTrap: FocusTrap;
+   private sub: Subscription;
 
-   constructor(
+   constructor(  private modalService: ModalService,
      private _elRef: ElementRef,
      private _focusTrapFactory: FocusTrapFactory,
      @Optional() @Inject(DOCUMENT) private _document: any
-     ) {}
+     ) {
+      this.sub = this.modalService.isModalOpened$.subscribe(isOpen => {
+        if ( !isOpen ) {
+          this.closeModal();
+        }
+      });
+      this.modalService.setModalStatus(this.show);
+     }
+
+
+
 
    private _trapFocus() {
      const element = this._elRef.nativeElement;
@@ -104,9 +125,17 @@ export class ModalComponent {
     }
    }
 
-   close() {
-     if ( this.backdropClickExit ) {
-       this.closeOnBackdrop.emit();
-     }
+  showModal() {
+
+   }
+
+  closeModal() {
+    if ( this.show === true ) {
+      this.show = false;
+      this.onHide.emit();
+      if ( this.backdropClickExit ) {
+        this.closeOnBackdrop.emit();
+      }
+    }
    }
 }

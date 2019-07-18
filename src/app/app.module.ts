@@ -10,6 +10,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ModalHeaderComponent } from './components/modal/modal-header.component';
 import { ModalFooterComponent } from './components/modal/modal-footer.component';
 import { ModalBodyComponent } from './components/modal/modal-body.component';
+import { ModalExample } from './pages/home/modal-example.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ModalBodyComponent } from './components/modal/modal-body.component';
     ModalComponent,
     ModalHeaderComponent,
     ModalFooterComponent,
-    ModalBodyComponent
+    ModalBodyComponent,
+    ModalExample
   ],
   imports: [
     BrowserModule,

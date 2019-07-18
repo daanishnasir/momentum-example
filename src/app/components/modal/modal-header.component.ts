@@ -7,6 +7,7 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
+import { ModalService } from './modal.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ import {
   `,
 })
 export class ModalHeaderComponent {
+
   /** @option Optional css class string | '' */
   @Input() public class: string = '';
   /** ModalHeader label text | '' */
@@ -41,9 +43,9 @@ export class ModalHeaderComponent {
     );
   }
 
-  @Output() closeButtonClick: EventEmitter<any> = new EventEmitter<any>();
+  constructor(private modalService: ModalService){}
 
   close() {
-    this.closeButtonClick.emit();
+    this.modalService.setModalStatus(false);
   }
 }

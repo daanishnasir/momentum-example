@@ -1,5 +1,5 @@
-<md-modal [(show)]="showModal">
-  <md-modal-header (closeButtonClick)="closeModal()" headerLabel="Default Modal">
+<md-modal [(show)]="showMe" (onHide)="closeModal()">
+  <md-modal-header  headerLabel="Default Modal">
   </md-modal-header>
   <md-modal-body><form></form></md-modal-body>
   <md-modal-footer>
@@ -8,6 +8,7 @@
       alt="Close Modal"
       type="button"
       aria-label="Close Modal"
+      click="closeModal()"
     >
       <span class="md-button__children">
         Cancel

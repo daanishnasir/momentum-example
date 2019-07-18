@@ -16,6 +16,8 @@ export class HomeComponent  {
     this.showModal = true;
   }
 
-
+  closeModal() {
+    this.showModal = false;
+  }
 
 }
